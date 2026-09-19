@@ -57,6 +57,69 @@ function handleIncomingCallback(callbackQuery) {
 
   return;
 }
+  if (data.indexOf('flashcards_') === 0) {
+  const driveFileId = data.substring('flashcards_'.length);
+
+  sendTelegramMessage(
+    chatId,
+    '⏳ Creating flashcards from your notes...'
+  );
+
+  try {
+    const flashcards = generateFileFlashcards_(driveFileId);
+
+    sendTelegramMessage(
+      chatId,
+      '🗂 <b>Flashcards</b>\n\n' + escapeHtml(flashcards)
+    );
+  } catch (error) {
+    Logger.log(
+      'Flashcard generation error: ' +
+        error.message +
+        '\n' +
+        error.stack
+    );
+
+    sendTelegramMessage(
+      chatId,
+      'I couldn’t generate the flashcards right now. Please try again.'
+    );
+  }
+
+  return;
+}
+
+if (data.indexOf('quiz_') === 0) {
+  const driveFileId = data.substring('quiz_'.length);
+
+  sendTelegramMessage(
+    chatId,
+    '⏳ Creating a quiz from your notes...'
+  );
+
+  try {
+    const quiz = generateFileQuiz_(driveFileId);
+
+    sendTelegramMessage(
+      chatId,
+      '🧠 <b>Quiz</b>\n\n' + escapeHtml(quiz)
+    );
+  } catch (error) {
+    Logger.log(
+      'Quiz generation error: ' +
+        error.message +
+        '\n' +
+        error.stack
+    );
+
+    sendTelegramMessage(
+      chatId,
+      'I couldn’t generate the quiz right now. Please try again.'
+    );
+  }
+
+  return;
+}
   sendTelegramMessage(chatId, "That option isn't available yet.");
 }
 

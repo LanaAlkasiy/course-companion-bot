@@ -96,13 +96,25 @@ function handleFileUpload_(message) {
   {
     replyMarkup: {
       inline_keyboard: [
-        [
-          {
-            text: '📝 Generate Summary',
-            callback_data: 'summarize_' + driveFile.getId()
-          }
-        ]
-      ]
+  [
+    {
+      text: '📝 Generate Summary',
+      callback_data: 'summarize_' + driveFile.getId()
+    }
+  ],
+  [
+    {
+      text: '🗂 Generate Flashcards',
+      callback_data: 'flashcards_' + driveFile.getId()
+    }
+  ],
+  [
+    {
+      text: '🧠 Generate Quiz',
+      callback_data: 'quiz_' + driveFile.getId()
+    }
+  ]
+]
     }
   }
   );
