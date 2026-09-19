@@ -30,17 +30,18 @@ function handleIncomingCallback(callbackQuery) {
   const driveFileId = data.substring('summarize_'.length);
 
   sendTelegramMessage(
-    chatId,
-    '⏳ Reading your notes and generating a summary...'
+  chatId,
+  'Reading your notes and generating a summary...'
   );
 
   try {
     const summary = generateFileSummary_(driveFileId);
 
     sendTelegramMessage(
-      chatId,
-      '📝 <b>Summary</b>\n\n' + escapeHtml(summary)
-    );
+  chatId,
+  '<b>Summary</b>\n\n' + escapeHtml(summary)
+);
+    
   } catch (error) {
     Logger.log(
       'Summary generation error: ' +
@@ -61,17 +62,17 @@ function handleIncomingCallback(callbackQuery) {
   const driveFileId = data.substring('flashcards_'.length);
 
   sendTelegramMessage(
-    chatId,
-    '⏳ Creating flashcards from your notes...'
-  );
+  chatId,
+  'Creating flashcards from your notes...'
+);
 
   try {
     const flashcards = generateFileFlashcards_(driveFileId);
 
     sendTelegramMessage(
-      chatId,
-      '🗂 <b>Flashcards</b>\n\n' + escapeHtml(flashcards)
-    );
+  chatId,
+  '<b>Flashcards</b>\n\n' + escapeHtml(flashcards)
+);
   } catch (error) {
     Logger.log(
       'Flashcard generation error: ' +
@@ -93,17 +94,17 @@ if (data.indexOf('quiz_') === 0) {
   const driveFileId = data.substring('quiz_'.length);
 
   sendTelegramMessage(
-    chatId,
-    '⏳ Creating a quiz from your notes...'
-  );
+  chatId,
+  'Creating a quiz from your notes...'
+);
 
   try {
     const quiz = generateFileQuiz_(driveFileId);
 
     sendTelegramMessage(
-      chatId,
-      '🧠 <b>Quiz</b>\n\n' + escapeHtml(quiz)
-    );
+  chatId,
+  '<b>Quiz</b>\n\n' + escapeHtml(quiz)
+);
   } catch (error) {
     Logger.log(
       'Quiz generation error: ' +

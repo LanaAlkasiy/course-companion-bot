@@ -50,7 +50,7 @@ function handleFileUpload_(message) {
   }
 
   try {
-    sendTelegramMessage(chatId, '⏳ Uploading your file...');
+    sendTelegramMessage(chatId, 'Uploading your file...');
 
     const fileInfo = callTelegramApi_('getFile', {
       file_id: telegramFileId
@@ -88,7 +88,7 @@ function handleFileUpload_(message) {
 
     sendTelegramMessage(
   chatId,
-  '✅ <b>' +
+  '<b>' +
     escapeHtml(fileName) +
     '</b> was added to ' +
     escapeHtml(course.courseCode) +
@@ -96,28 +96,28 @@ function handleFileUpload_(message) {
   {
     replyMarkup: {
       inline_keyboard: [
-  [
-    {
-      text: '📝 Generate Summary',
-      callback_data: 'summarize_' + driveFile.getId()
-    }
-  ],
-  [
-    {
-      text: '🗂 Generate Flashcards',
-      callback_data: 'flashcards_' + driveFile.getId()
-    }
-  ],
-  [
-    {
-      text: '🧠 Generate Quiz',
-      callback_data: 'quiz_' + driveFile.getId()
-    }
-  ]
-]
+        [
+          {
+            text: 'Generate Summary',
+            callback_data: 'summarize_' + driveFile.getId()
+          }
+        ],
+        [
+          {
+            text: 'Generate Flashcards',
+            callback_data: 'flashcards_' + driveFile.getId()
+          }
+        ],
+        [
+          {
+            text: 'Generate Quiz',
+            callback_data: 'quiz_' + driveFile.getId()
+          }
+        ]
+      ]
     }
   }
-  );
+);
   } catch (error) {
     Logger.log('File upload error: ' + error.message + '\n' + error.stack);
 

@@ -39,9 +39,9 @@ function handleStartCommand_(message) {
   const firstName = escapeHtml(message.from.first_name || 'there');
 
   const welcomeText =
-    '👋 Hi ' + firstName + '! I\'m your <b>Course Companion</b>.\n\n' +
-    'I turn your lecture notes into summaries, flashcards, and quizzes.\n\n' +
-    '<i>This is an early build — more features are coming soon.</i>';
+  'Hi ' + firstName + '! I\'m your <b>Course Companion</b>.\n\n' +
+  'I turn your lecture notes into summaries, flashcards, and quizzes.\n\n' +
+  'Select a course or create a new one to get started.';
 
   sendTelegramMessage(chatId, welcomeText, { replyMarkup: buildMainMenuKeyboard_() });
 }
@@ -76,8 +76,8 @@ function handleCourseCodeReply_(chatId, telegramUserId, stateData, courseCode) {
   clearUserState_(telegramUserId);
 
   const confirmation =
-    '✅ ' + escapeHtml(course.courseCode) + ' — ' + escapeHtml(course.courseName) + ' was created and selected.\n\n' +
-    'Now send the lecture files or pictures you want to add to this course.';
+  escapeHtml(course.courseCode) + ' — ' + escapeHtml(course.courseName) + ' was created and selected.\n\n' +
+  'Now send the lecture files or pictures you want to add to this course.';
 
   sendTelegramMessage(chatId, confirmation);
 }
