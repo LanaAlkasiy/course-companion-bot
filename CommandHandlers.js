@@ -2,6 +2,7 @@ function handleIncomingMessage(message) {
   const chatId = message.chat.id;
   const telegramUserId = message.from.id;
   const text = (message.text || '').trim();
+  Logger.log('DEBUG text="' + text + '" userId=' + telegramUserId + ' state=' + JSON.stringify(getUserState_(telegramUserId)));
 
   if (text === '/start') {
     clearUserState_(telegramUserId);
@@ -14,7 +15,10 @@ function handleIncomingMessage(message) {
     sendTelegramMessage(chatId, 'Cancelled. Send /start to see the menu.');
     return;
   }
-
+  if (message.document || message.photo) {
+  handleFileUpload_(message);
+  return;
+  }
   const userState = getUserState_(telegramUserId);
 
   if (userState.state === USER_STATES.WAITING_COURSE_NAME) {
@@ -58,7 +62,7 @@ function handleCourseNameReply_(chatId, telegramUserId, courseName) {
     return;
   }
   setUserState_(telegramUserId, USER_STATES.WAITING_COURSE_CODE, { courseName: courseName });
-  sendTelegramMessage(chatId, 'Got it. Now enter the course code (e.g. CMPS 251).');
+  sendTelegramMessage(chatId, 'Got it! Now enter the course code.');
 }
 
 function handleCourseCodeReply_(chatId, telegramUserId, stateData, courseCode) {

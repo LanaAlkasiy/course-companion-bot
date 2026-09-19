@@ -1,6 +1,6 @@
 const CONFIG = {
   TELEGRAM_API_BASE: 'https://api.telegram.org/bot',
-  GEMINI_MODEL: 'gemini-2.0-flash',
+  GEMINI_MODEL: 'gemini-3.6-flash',
   GEMINI_API_BASE: 'https://generativelanguage.googleapis.com/v1beta/models/',
   SHEET_NAMES: {
     USERS: 'Users',

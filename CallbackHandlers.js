@@ -26,7 +26,37 @@ function handleIncomingCallback(callbackQuery) {
     handleCourseSelection_(chatId, telegramUserId, courseId);
     return;
   }
+  if (data.indexOf('summarize_') === 0) {
+  const driveFileId = data.substring('summarize_'.length);
 
+  sendTelegramMessage(
+    chatId,
+    '⏳ Reading your notes and generating a summary...'
+  );
+
+  try {
+    const summary = generateFileSummary_(driveFileId);
+
+    sendTelegramMessage(
+      chatId,
+      '📝 <b>Summary</b>\n\n' + escapeHtml(summary)
+    );
+  } catch (error) {
+    Logger.log(
+      'Summary generation error: ' +
+        error.message +
+        '\n' +
+        error.stack
+    );
+
+   sendTelegramMessage(
+  chatId,
+  'I couldn’t generate the summary right now. Please try again.'
+);
+  }
+
+  return;
+}
   sendTelegramMessage(chatId, "That option isn't available yet.");
 }
 

@@ -1,13 +1,13 @@
 function doPost(e) {
   try {
     if (!e || !e.postData || !e.postData.contents) {
-      return ContentService.createTextOutput('OK');
+      return webhookResponse_();
     }
 
     const update = JSON.parse(e.postData.contents);
 
     if (!isNewUpdate_(update.update_id)) {
-      return ContentService.createTextOutput('OK');
+      return webhookResponse_();
     }
 
     if (update.message) {
@@ -15,18 +15,35 @@ function doPost(e) {
     } else if (update.callback_query) {
       handleIncomingCallback(update.callback_query);
     }
+
   } catch (err) {
-    Logger.log('doPost error: ' + err.message + '\n' + err.stack);
+    Logger.log(
+      'doPost error: ' +
+      err.message +
+      '\n' +
+      err.stack
+    );
   }
 
-  return ContentService.createTextOutput('OK');
+  return webhookResponse_();
+}
+
+function webhookResponse_() {
+  return HtmlService.createHtmlOutput('OK');
 }
 
 function isNewUpdate_(updateId) {
-  if (updateId === undefined || updateId === null) return true;
+  if (updateId === undefined || updateId === null) {
+    return true;
+  }
+
   const cache = CacheService.getScriptCache();
   const key = 'update_' + updateId;
-  if (cache.get(key)) return false;
-  cache.put(key, '1', 600);
+
+  if (cache.get(key)) {
+    return false;
+  }
+
+  cache.put(key, '1', 21600);
   return true;
 }

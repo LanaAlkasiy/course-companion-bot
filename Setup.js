@@ -50,11 +50,19 @@ function testTelegramConnection() {
   return result;
 }
 function fixWebhookNow() {
-  const del = deleteTelegramWebhook();
-  Logger.log('DELETE result: ' + JSON.stringify(del));
-  
-  Utilities.sleep(1000); // brief pause so Telegram registers the deletion
+  const webAppUrl = getWebAppUrl();
 
-  const set = setTelegramWebhook(getWebAppUrl());
-  Logger.log('SET result: ' + JSON.stringify(set));
+  const deleted = callTelegramApi_('deleteWebhook', {
+    drop_pending_updates: true
+  });
+
+  Logger.log('DELETE result: ' + JSON.stringify(deleted));
+
+  Utilities.sleep(1000);
+
+  const connected = setTelegramWebhook(webAppUrl);
+
+  Logger.log('SET result: ' + JSON.stringify(connected));
+
+  return connected;
 }
