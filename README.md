@@ -16,4 +16,4 @@ A Telegram bot designed to help students organize their courses and course mater
 
 ## Status
 
-Currently under development. More course-management features will be added gradually
+Currently under development. More course management features will be added gradually.
